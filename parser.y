@@ -71,8 +71,8 @@ statement_:
 statement:
 	expression |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
-  IF expression THEN statement ELSE statement ENDIF ';' {$$ = $2} |
-  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ =$2} ;
+  IF expression THEN statement ELSE statement ENDIF ';' {$$ = $2;} |
+  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = $2;} ;
 
 operator:
 	ADDOP |
@@ -105,7 +105,7 @@ term:
 	factor ;
 
 factor:
-	factor MULOP power  {$$ = checkArithmetic($1, $3);} |
+	factor MULOP power {$$ = checkArithmetic($1, $3);} |
   factor REMOP power {$$ = checkArithmetic{$1, $3};} |
 	power ;
 
@@ -114,7 +114,7 @@ power:
   negation ;
 
 negation:
-  NOTOP primary {$$ = $2} |
+  NOTOP primary {$$ = $2;} |
   primary;
 
 primary:
