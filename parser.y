@@ -37,7 +37,7 @@ Symbols<Types> symbols;
 %token NOT
 
 %type <type> type statement statement_ reductions expression relation term
-	factor primary conjunct
+	factor primary conjunct negation power
 
 %%
 
@@ -105,8 +105,8 @@ term:
 	factor ;
 
 factor:
-	factor MULOP primary  {$$ = checkArithmetic($1, $3);} |
-  factor REMPOP power {$$ = checkArithmetic{$1, $3};} |
+	factor MULOP power  {$$ = checkArithmetic($1, $3);} |
+  factor REMOP power {$$ = checkArithmetic{$1, $3};} |
 	power ;
 
 power:
