@@ -42,12 +42,15 @@ Symbols<Types> symbols;
 %%
 
 function:
-	function_header optional_variable body ;
+	function_header variables body ;
 
 function_header:
 	FUNCTION IDENTIFIER RETURNS type ';';
+variables:
+  variable_ variables |
+  ;
 
-optional_variable:
+variable_:
 	variable |
 	;
 
@@ -106,7 +109,7 @@ term:
 
 factor:
 	factor MULOP power {$$ = checkArithmetic($1, $3);} |
-  factor REMOP power {$$ = checkArithmetic{$1, $3};} |
+  /*factor REMOP power {$$ = checkArithmetic{$1, $3};} |*/
 	power ;
 
 power:
