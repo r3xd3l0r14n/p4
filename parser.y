@@ -36,7 +36,7 @@ Symbols<Types> symbols;
 %token REAL IF THEN ELSE ENDIF CASE OTHERS ARROW ENDCASE WHEN
 %token NOT
 
-%type <type> type statement statement_ reductions expression relation term
+%type <type> type statement reductions expression relation term
 	factor primary conjunct negation power
 
 %%
@@ -55,7 +55,7 @@ variable_:
 	;
 
 variable:
-	IDENTIFIER ':' type IS statement_
+	IDENTIFIER ':' type IS statement
 		{checkAssignment($3, $5, "Variable Initialization");
 		symbols.insert($1, $3);} ;
 
@@ -65,11 +65,7 @@ type:
 	BOOLEAN {$$ = BOOL_TYPE;} ;
 
 body:
-	BEGIN_ statement_ END ';' ;
-
-statement_:
-	statement ';' |
-	error ';' {$$ = MISMATCH;} ;
+	BEGIN_ statement END ';' ;
 
 statement:
 	expression |
