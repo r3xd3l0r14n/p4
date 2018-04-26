@@ -26,6 +26,7 @@ digit		\-?[0-9]
 int		{digit}+
 punc		[\(\),:;]
 realLit \-?[0-9]+[\.][0-9]*
+
 %%
 
 {ws}		{ ECHO; }
@@ -67,7 +68,7 @@ if        { ECHO; return(IF); }
 others    { ECHO; return(OTHERS); }
 real      { ECHO; return(REAL); }
 then      { ECHO; return(THEN); }
-when      { ECHO; return(WHEN); }}
+when      { ECHO; return(WHEN); }
 {id}		{ ECHO; yylval.iden = (CharPtr)malloc(yyleng + 1); strcpy(yylval.iden, yytext); return(IDENTIFIER);}
 {int}		{ ECHO; yylval.type = INT_TYPE; return(INT_LITERAL); }
 {punc}		{ ECHO; return(yytext[0]); }
