@@ -37,7 +37,7 @@ Symbols<Types> symbols;
 %token NOT
 
 %type <type> type statement statements reductions expression relation term
-	factor primary conjunct negation power
+	factor primary conjunct negation power case 
 
 %%
 
@@ -73,17 +73,14 @@ statement:
 	expression ';' |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
   IF expression THEN statement ELSE statement ENDIF ';' {$$ = checkIfThen($2, $4, $6);} |
-  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = checkCaseInt($2);} ;
+  CASE expression IS case OTHERS ARROW statement ENDCASE ';' {$$ = checkCase($2, $4);} ;
 
 operator:
 	ADDOP |
 	MULOP ;
 
-cases:
-  | cases case ;
-
 case:
-  WHEN INT_LITERAL ARROW statement ;
+  WHEN INT_LITERAL ARROW statement {$$=$4;} ;
 
 reductions:
 	reductions statement {$$ = checkArithmetic($1, $2);} |

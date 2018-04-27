@@ -1,7 +1,7 @@
 //professors functions
 function main returns integer;
-a: integer is 9;
-b: boolean is 9.8;
+a: boolean is 9;
+b: integer is 9.8;
 a: boolean is 8;
 begin
   if a + 9 then
@@ -10,7 +10,7 @@ begin
     9;
   endif;
   case a is
-    when 9.5 => 4 rem 6;
+    when 1 => true;
     others => 5;
   endcase;
 end;

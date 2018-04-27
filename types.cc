@@ -13,8 +13,13 @@ using namespace std;
 
 void checkAssignment(Types lValue, Types rValue, string message)
 {
-	if (lValue != MISMATCH && rValue != MISMATCH && lValue != rValue)
-		appendError(GENERAL_SEMANTIC, "Type Mismatch on " + message);
+	if (lValue == INT_TYPE && rValue == REAL_TYPE)
+	{
+		appendError(GENERAL_SEMANTIC, "Illegal Narrowing Variable Initialization");
+	} else {
+		if (lValue != MISMATCH && rValue != MISMATCH && lValue != rValue)
+			appendError(GENERAL_SEMANTIC, "Type Mismatch on " + message);
+	}
 }
 
 Types checkArithmetic(Types left, Types right)
@@ -85,11 +90,24 @@ Types checkREMOP(Types left, Types right)
 	}
 	return INT_TYPE;
 }
-Types checkCaseInt(Types left)
+Types checkCase(Types expression, Types s1)
 {
-	if (left != INT_TYPE)
+	if (expression != INT_TYPE)
 	{
-		appendError(GENERAL_SEMANTIC, "Integer Type Required");
+		appendError(GENERAL_SEMANTIC, "Case expression not Integer");
+	}
+	if (expression != s1)
+	{
+		appendError(GENERAL_SEMANTIC, "Case types mismatch");
 		return MISMATCH;
+
 	}
 }
+/*Types checkCaseInt(Types expression)
+{
+	if (expression != INT_TYPE)
+	{
+		appendError(GENERAL_SEMANTIC, "Case Expression not Integer");
+		return MISMATCH;
+	}
+}*/
