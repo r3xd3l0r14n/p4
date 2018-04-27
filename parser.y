@@ -45,7 +45,8 @@ function:
 	function_header variables body ;
 
 function_header:
-	FUNCTION IDENTIFIER RETURNS type ';';
+	FUNCTION IDENTIFIER RETURNS type ';' ;
+
 variables:
   variable variables |
   ;
