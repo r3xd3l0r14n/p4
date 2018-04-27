@@ -57,6 +57,7 @@ Types checkIfThen(Types expression, Types s1, Types s2)
 		return MISMATCH;
 	} else
 	{
+		appendError(GENERAL_SEMANTIC, "I made it here");
 		if (s1 != s2)
 		{
 			appendError(GENERAL_SEMANTIC, "Statements do not match");
