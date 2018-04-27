@@ -54,7 +54,7 @@ variables:
 variable:
 	IDENTIFIER ':' type IS statement
 		{checkAssignment($3, $5, "Variable Initialization");
-		symbols.insert($1, $3);} ;
+		if (!symbols.insert($1, $3)) appendError(DUPLICATE_IDENTIFIER, $1);} ;
 
 type:
 	INTEGER {$$ = INT_TYPE;} |

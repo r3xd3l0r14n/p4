@@ -55,14 +55,12 @@ Types checkIfThen(Types expression, Types s1, Types s2)
 	{
 		appendError(GENERAL_SEMANTIC, "Boolean Type Required");
 		return MISMATCH;
-	} else
+	}
+	if (s1 != s2)
 	{
-		appendError(GENERAL_SEMANTIC, "I made it here");
-		if (s1 != s2)
-		{
-			appendError(GENERAL_SEMANTIC, "Statements do not match");
-			return MISMATCH;
-		}
+		appendError(GENERAL_SEMANTIC, "Statements do not match");
+		return MISMATCH;
+	}
 	}
 	return BOOL_TYPE;
 }

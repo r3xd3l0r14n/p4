@@ -15,7 +15,15 @@ template <typename T>
 void Symbols<T>::insert(char* lexeme, T entry)
 {
 	string name(lexeme);
-	symbols[name] = entry;
+	bool alreadyExists = symbols.find(name);
+	if (alreadyExists)
+	{
+		return alreadyExists;
+	} else
+	{
+			symbols[name] = entry;
+	}
+	return alreadyExists;	
 }
 
 template <typename T>
