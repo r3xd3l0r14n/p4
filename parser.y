@@ -47,12 +47,8 @@ function:
 function_header:
 	FUNCTION IDENTIFIER RETURNS type ';';
 variables:
-  variable_ variables |
+  variable variables |
   ;
-
-variable_:
-	variable |
-	;
 
 variable:
 	IDENTIFIER ':' type IS statement
@@ -68,7 +64,7 @@ body:
 	BEGIN_ statement END ';' ;
 
 statement:
-	expression |
+	expression ';' |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
   IF expression THEN statement ELSE statement ENDIF ';' {$$ = $2;} |
   CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = $2;} ;
@@ -84,7 +80,7 @@ case:
   WHEN INT_LITERAL ARROW statement ;
 
 reductions:
-	reductions statement_ {$$ = checkArithmetic($1, $2);} |
+	reductions statement {$$ = checkArithmetic($1, $2);} |
 	{$$ = INT_TYPE;} ;
 
 expression:
