@@ -67,7 +67,7 @@ body:
 statement:
 	expression ';' |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
-  IF expression THEN statement ELSE statement ENDIF ';' {$$ = $2;} |
+  IF expression THEN statement ELSE statement ENDIF ';' {$$ = checkIfThen($2, $4, $6);} |
   CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = $2;} ;
 
 operator:
