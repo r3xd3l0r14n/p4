@@ -36,7 +36,7 @@ Symbols<Types> symbols;
 %token REAL IF THEN ELSE ENDIF CASE OTHERS ARROW ENDCASE WHEN
 %token NOT
 
-%type <type> type statement reductions expression relation term
+%type <type> type statement statements reductions expression relation term
 	factor primary conjunct negation power
 
 %%
@@ -54,7 +54,7 @@ variables:
 variable:
 	IDENTIFIER ':' type IS statement
 		{checkAssignment($3, $5, "Variable Initialization");
-		if (!symbols.insert($1, $3)) appendError(DUPLICATE_IDENTIFIER, $1);} ;
+		symbols.insert($1, $3);} ;
 
 type:
 	INTEGER {$$ = INT_TYPE;} |
@@ -62,13 +62,18 @@ type:
 	BOOLEAN {$$ = BOOL_TYPE;} ;
 
 body:
-	BEGIN_ statement END ';' ;
+	BEGIN_ statements END ';' ;
+
+statements:
+  statement statements |
+  statement
+  ;
 
 statement:
 	expression ';' |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
   IF expression THEN statement ELSE statement ENDIF ';' {$$ = checkIfThen($2, $4, $6);} |
-  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = $2;} ;
+  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = checkCaseInt($2);} ;
 
 operator:
 	ADDOP |
@@ -102,11 +107,11 @@ term:
 
 factor:
 	factor MULOP power {$$ = checkArithmetic($1, $3);} |
-  /*factor REMOP power {$$ = checkArithmetic{$1, $3};} |*/
+  factor REMOP power {$$ = checkREMOP($1, $3);} |
 	power ;
 
 power:
-  negation EXPOP power {$$ = checkArithmetic($1, $3);} |
+  power EXPOP negation {$$ = checkArithmetic($1, $3);} |
   negation ;
 
 negation:

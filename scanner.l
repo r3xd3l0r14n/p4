@@ -38,7 +38,7 @@ realLit \-?[0-9]+[\.][0-9]*
 "-"   { ECHO; return(ADDOP); }
 "*"		{ ECHO; return(MULOP); }
 "/"		{ ECHO; return(MULOP); }
-rem		{ ECHO; return(MULOP); }
+rem		{ ECHO; return(REMOP); }
 "="   { ECHO; return(RELOP); }
 "/="  { ECHO; return(RELOP); }
 ">"   { ECHO; return(RELOP); }

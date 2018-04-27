@@ -13,3 +13,5 @@ Types checkArithmetic(Types left, Types right);
 Types checkLogical(Types left, Types right);
 Types checkRelational(Types left, Types right);
 Types checkIfThen(Types expression, Types s1, Types s2);
+Types checkREMOP(Types left, Types right);
+Types checkCaseInt(Types left);
