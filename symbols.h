@@ -15,6 +15,7 @@ template <typename T>
 bool Symbols<T>::insert(char* lexeme, T entry)
 {
 	string name(lexeme);
+	typedef typename map<string, T>::iterator Iterator;
 	Iterator iterator = symbols.find(name);
 	bool alreadyExists = iterator == symbols.end();
 	if (alreadyExists)
