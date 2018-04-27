@@ -12,10 +12,11 @@ private:
 };
 
 template <typename T>
-void Symbols<T>::insert(char* lexeme, T entry)
+bool Symbols<T>::insert(char* lexeme, T entry)
 {
 	string name(lexeme);
-	bool alreadyExists = symbols.find(name);
+	Iterator iterator = symbols.find(name);
+	bool alreadyExists = iterator == symbols.end();
 	if (alreadyExists)
 	{
 		return alreadyExists;
@@ -23,7 +24,7 @@ void Symbols<T>::insert(char* lexeme, T entry)
 	{
 			symbols[name] = entry;
 	}
-	return alreadyExists;	
+	return alreadyExists;
 }
 
 template <typename T>
