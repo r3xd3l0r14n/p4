@@ -37,7 +37,7 @@ Symbols<Types> symbols;
 %token NOT
 
 %type <type> type statement statements reductions expression relation term
-	factor primary conjunct negation power case 
+	factor primary conjunct negation power case
 
 %%
 
@@ -45,11 +45,14 @@ function:
 	function_header variables body ;
 
 function_header:
-	FUNCTION IDENTIFIER RETURNS type ';' ;
+	FUNCTION IDENTIFIER parameter RETURNS type ';' ;
 
 variables:
   variable variables |
   ;
+
+parameter:
+  IDENTIFIER ':' type ;
 
 variable:
 	IDENTIFIER ':' type IS statement
