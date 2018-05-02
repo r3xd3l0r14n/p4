@@ -45,7 +45,14 @@ function:
 	function_header variables body ;
 
 function_header:
-	FUNCTION IDENTIFIER parameter RETURNS type ';' ;
+	FUNCTION IDENTIFIER optional_parameters RETURNS type ';' ;
+
+optional_parameters:
+	parameters |
+	;
+parameters:
+	parameter ',' parameters |
+	parameter ;
 
 variables:
   variable variables |
