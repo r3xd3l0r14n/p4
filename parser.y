@@ -37,7 +37,7 @@ Symbols<Types> symbols;
 %token NOT
 
 %type <type> type statement statements reductions expression relation term
-	factor primary conjunct negation power case
+	factor primary conjunct negation power case cases
 
 %%
 
@@ -89,7 +89,7 @@ operator:
 	ADDOP |
 	MULOP ;
 cases:
-  cases case {$$=$1;} |
+  cases case {$$=$2;} |
   ;
 
 case:
