@@ -33,11 +33,11 @@ Types checkArithmetic(Types left, Types right)
 	} else if (left == INT_TYPE && right == REAL_TYPE)
 	{
 		left = REAL_TYPE;
-		return MISMATCH;
+		return REAL_TYPE;
 	} else if (left == REAL_TYPE && right == INT_TYPE)
 	{
 		right = REAL_TYPE;
-		return MISMATCH;
+		return REAL_TYPE;
 	}
 	return INT_TYPE;
 }
