@@ -59,7 +59,7 @@ variables:
   ;
 
 parameter:
-  IDENTIFIER ':' type ;
+  IDENTIFIER ':' type {symbols.insert($1, $3); } ;
 
 variable:
 	IDENTIFIER ':' type IS statement
@@ -83,14 +83,17 @@ statement:
 	expression ';' |
 	REDUCE operator reductions ENDREDUCE {$$ = $3;} |
   IF expression THEN statement ELSE statement ENDIF ';' {$$ = checkIfThen($2, $4, $6);} |
-  CASE expression IS case OTHERS ARROW statement ENDCASE ';' {$$ = checkCase($2, $4);} ;
+  CASE expression IS cases OTHERS ARROW statement ENDCASE ';' {$$ = checkCase($2, $4);} ;
 
 operator:
 	ADDOP |
 	MULOP ;
+cases:
+  cases case {$$=$1;} |
+  ;
 
 case:
-  WHEN INT_LITERAL ARROW statement {$$=$4;} ;
+  WHEN INT_LITERAL ARROW statements {$$=$4;} ;
 
 reductions:
 	reductions statement {$$ = checkArithmetic($1, $2);} |
