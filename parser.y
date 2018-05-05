@@ -89,7 +89,7 @@ operator:
 	ADDOP |
 	MULOP ;
 cases:
-  cases case {$$=$2;} |
+  cases case {$$=$1;} |
   ;
 
 case:
